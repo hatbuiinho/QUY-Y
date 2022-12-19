@@ -153,6 +153,7 @@ const Register = (props) => {
         avatar: _.get(values, 'avatarPath'),
         nominator: _.get(values, 'Referencer'),
         note: _.get(values, 'note'),
+        id: -1,
       };
       request
         .post(API.POST_REGISTER_QUY_Y, submitData, { isNotCheck: true })
@@ -172,10 +173,20 @@ const Register = (props) => {
               // const returnUrl = router.query.returnUrl || '/';
               // router.push(returnUrl);
             }, 2000);
+          } else {
+            toast({
+              title: 'Lỗi',
+              description: _.get(res, 'message', ''),
+              status: 'error',
+              duration: 3000,
+              isClosable: true,
+              position: 'top',
+            });
           }
         })
         .catch((message, option) => {
           setLoading(false);
+          debugger;
 
           alertService.error(message, option);
         });
