@@ -20,13 +20,13 @@ const REGISTER = api('/Member/add');
 const SEARCH_MEMBER = api('/Member/search');
 
 /* API from app Nhân sự */
-const GET_PROVINCE = 'https://ctnpq.com/apis/address/Province';
-const GET_DISTRICT = 'https://ctnpq.com/apis/address/District';
-const GET_WARD = 'https://ctnpq.com/apis/address/Ward';
-const UPLOAD_PHOTO = 'https://ctnpq.com/apis/photo/upload';
-const GET_CTN = 'https://ctnpq.com/apis/ctn/list';
-const GET_PHOTO = `https://ctnpq.com/apis/photo?key=:key`;
-const GET_PAGE_QUY_Y = `https://ctnpq.com/apis/QuyY/GetPageRegiter`;
+const GET_PROVINCE = 'https://api.ctnpq.com/address/Province';
+const GET_DISTRICT = 'https://api.ctnpq.com/address/District';
+const GET_WARD = 'https://api.ctnpq.com/address/Ward';
+const UPLOAD_PHOTO = 'https://api.ctnpq.com/photo/upload';
+const GET_CTN = 'https://api.ctnpq.com/ctn/list';
+const GET_PHOTO = `https://api.ctnpq.com/photo?key=:key`;
+const GET_PAGE_QUY_Y = `https://api.ctnpq.com/QuyY/GetPageRegiter`;
 const POST_REGISTER_QUY_Y = `https://api.ctnpq.com/QuyY/Regiter`;
 
 const API = {
