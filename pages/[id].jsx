@@ -172,7 +172,7 @@ const Register = (props) => {
               window.location.href = 'http://thongtin.thientonphatquang.com/';
               // const returnUrl = router.query.returnUrl || '/';
               // router.push(returnUrl);
-            }, 2000);
+            }, 6000);
           } else {
             toast({
               title: 'Lỗi',
