@@ -25,9 +25,7 @@ const formRegister = Yup.object({
     // .required('Xin hãy nhập số điện thoại')
     .matches(REGEX_PHONE, 'Số điện thoại không hợp lệ')
     .notRequired(),
-  identityCard: Yup.string()
-    .matches(/^(\d{9})(\d{3})?$/, 'CCCD phải là chuỗi 9 hoặc 12 số ạ')
-    .notRequired(),
+  identityCard: Yup.string().notRequired(),
   // dob: Yup.object()
   //   .shape({
   //     date: Yup.string(),
