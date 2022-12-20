@@ -18,14 +18,15 @@ const validateCalenderDate = ({ year, month, date }) => {
       !(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
     );
 };
-
 const formRegister = Yup.object({
   fullName: Yup.string().required('Xin hãy nhập họ và tên'),
   phoneNumber: Yup.string()
     // .required('Xin hãy nhập số điện thoại')
     .matches(REGEX_PHONE, 'Số điện thoại không hợp lệ')
     .notRequired(),
-  identityCard: Yup.string().notRequired(),
+  identityCard: Yup.string()
+    .matches(/^(\d{9})(\d{3})?$/, 'CCCD phải là chuỗi 9 hoặc 12 số ạ')
+    .notRequired(),
   // dob: Yup.object()
   //   .shape({
   //     date: Yup.string(),

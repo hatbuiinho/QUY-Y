@@ -309,7 +309,7 @@ const Register = (props) => {
                           <Stack spacing={2}>
                             <FormInput
                               name="identityCard"
-                              label="Số CCCD / Hộ chiếu"
+                              label="Số CCCD"
                               inputMode="numeric"
                             />
                           </Stack>
