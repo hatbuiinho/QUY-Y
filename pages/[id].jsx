@@ -37,6 +37,7 @@ import useAxios from '../hooks/useAxios';
 import request from '../utils/request';
 
 import { useRouter } from 'next/router';
+import FloatingLabel from '@/components/Form/FloatingLabel/FloatingLabel';
 const Register = (props) => {
   const router = useRouter();
   const toast = useToast();
@@ -99,6 +100,8 @@ const Register = (props) => {
       provinceId: '',
       districtId: '',
       wardId: '',
+      address: '',
+      ttAddress: '',
     },
     validationSchema: formRegister,
     onSubmit: (values) => {
@@ -107,7 +110,7 @@ const Register = (props) => {
       //   setFlapImage(false);
       //   return;
       // }
-      setLoading(true);
+      // setLoading(true);
       // const submitData = {
       //   full_name: _.get(values, 'fullName'),
       //   id_card: _.get(values, 'identityCard'),
@@ -140,12 +143,17 @@ const Register = (props) => {
         email: _.get(values, 'email'),
         gender: _.get(values, 'gender'),
         mobile: _.get(values, 'phoneNumber'),
-        provinceId: _.get(values, 'permanentAddress.provinceId'),
-        districtId: _.get(values, 'permanentAddress.districtId'),
-        wardId: _.get(values, 'permanentAddress.wardId'),
-        ttDistrictId: _.get(values, 'temporaryAddress.districtId'),
-        ttProvinceId: _.get(values, 'temporaryAddress.provinceId'),
-        ttWardId: _.get(values, 'temporaryAddress.wardId'),
+
+        ttProvinceId: _.get(values, 'permanentAddress.provinceId'),
+        ttDistrictId: _.get(values, 'permanentAddress.districtId'),
+        ttWardId: _.get(values, 'permanentAddress.wardId'),
+        ttAddress: _.get(values, 'ttAddress'),
+
+        districtId: _.get(values, 'temporaryAddress.districtId'),
+        provinceId: _.get(values, 'temporaryAddress.provinceId'),
+        wardId: _.get(values, 'temporaryAddress.wardId'),
+        address: _.get(values, 'address'),
+
         ctnGroupId: _.get(values, 'organizationStructureId'),
         birthDay: _.get(values, 'dobDate') || undefined,
         birthMonth: _.get(values, 'dobMonth') || undefined,
@@ -170,8 +178,6 @@ const Register = (props) => {
             });
             setTimeout(() => {
               window.location.href = 'http://thongtin.thientonphatquang.com/';
-              // const returnUrl = router.query.returnUrl || '/';
-              // router.push(returnUrl);
             }, 6000);
           } else {
             toast({
@@ -341,6 +347,7 @@ const Register = (props) => {
                           name="permanentAddress"
                           label="Địa chỉ thường trú"
                         />
+                        <FloatingLabel label="Số nhà" name="ttAddress" />
                       </Stack>
                     </Form>
                   </FormikProvider>
@@ -392,6 +399,7 @@ const Register = (props) => {
                               label="Địa chỉ tạm trú"
                               mb={5}
                             />
+                            <FloatingLabel label="Số nhà" name="address" />
                           </Form>
                         </FormikProvider>
                       </Box>

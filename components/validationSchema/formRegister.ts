@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const REGEX_PHONE = new RegExp(/^0*(9|3|8|7|5)+([0-9]{8})$/);
 export const REGEX_YEAR = new RegExp(/^(19|20)+([0-9]{2})$/);
 export const REGEX_YEAR_MONTH_DAY = new RegExp(
-  /^(0*[1-9]|[12][0-9]|3[01])[- /.](0*[1-9]|1[012])[- /.](19|20)\d\d$/, // ex: 1997-03-19
+  /^(0*[1-9]|[12][0-9]|3[01])[- /.](0*[1-9]|1[012])[- /.](19|20)\d\d$/ // ex: 1997-03-19
 );
 
 const validateCalenderDate = ({ year, month, date }) => {
@@ -12,17 +12,22 @@ const validateCalenderDate = ({ year, month, date }) => {
   } else if (date >= 30 && month == 2) {
     return false; // February 30th or 31st
   } else
-    return !(month == 2 && date == 29 && !(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)));
+    return !(
+      month == 2 &&
+      date == 29 &&
+      !(year % 4 == 0 && (year % 100 != 0 || year % 400 == 0))
+    );
 };
-
-
 
 const formRegister = Yup.object({
   fullName: Yup.string().required('Xin hãy nhập họ và tên'),
-  // phoneNumber: Yup.string()
-  //   .required('Xin hãy nhập số điện thoại')
-  //   .matches(REGEX_PHONE, 'Số điện thoại không hợp lệ'),
-  // identityCard: Yup.string().required('Xin hãy nhập số CCCD / Hộ chiếu'),
+  phoneNumber: Yup.string()
+    // .required('Xin hãy nhập số điện thoại')
+    .matches(REGEX_PHONE, 'Số điện thoại không hợp lệ')
+    .notRequired(),
+  identityCard: Yup.string()
+    .matches(/^(\d{9})(\d{3})?$/, 'CCCD phải là chuỗi 9 hoặc 12 số ạ')
+    .notRequired(),
   // dob: Yup.object()
   //   .shape({
   //     date: Yup.string(),
@@ -47,7 +52,7 @@ const formRegister = Yup.object({
   // dobDate: Yup.string().required(),
   // dobMonth: Yup.string().required(),
   // dobYear: Yup.string().required(),
-  // email: Yup.string().email('Email không hợp lệ').required('Xin hãy nhập email'),
+  email: Yup.string().email('Email không hợp lệ').notRequired(),
   // // email: Yup.string().email('Email không hợp lệ'),
   // permanentAddress: Yup.object().shape({
   //   provinceId: Yup.number(),
