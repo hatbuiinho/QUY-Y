@@ -1,10 +1,8 @@
-import _ from 'lodash';
 import {
   Box,
   Flex,
   Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
   Icon,
@@ -12,7 +10,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  Image,
   useDisclosure,
   Drawer,
   DrawerOverlay,
@@ -52,7 +49,7 @@ const Navbar = ({ user }) => {
 
   const logout = () => {
     request.get('/api/users/logout').then(() => {
-      router.push('/');
+      router.push('/info');
     });
   };
   return (

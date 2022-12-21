@@ -112,30 +112,6 @@ const Register = (props) => {
       //   return;
       // }
       setLoading(true);
-      // const submitData = {
-      //   full_name: _.get(values, 'fullName'),
-      //   id_card: _.get(values, 'identityCard'),
-      //   email: _.get(values, 'email'),
-      //   gender: _.get(values, 'gender'),
-      //   phone: _.get(values, 'phoneNumber'),
-
-      //   province_id: _.get(values, 'permanentAddress.provinceId'),
-      //   district_id: _.get(values, 'permanentAddress.districtId'),
-      //   ward_id: _.get(values, 'permanentAddress.wardId'),
-      //   tt_province_id: _.get(values, 'temporaryAddress.districtId'),
-      //   tt_province_id: _.get(values, 'temporaryAddress.provinceId'),
-      //   tt_ward_id: _.get(values, 'temporaryAddress.wardId'),
-
-      //   ctn_group_id: _.get(values, 'organizationStructureId'),
-
-      //   birth_day: _.get(values, 'dob.date'),
-      //   birth_month: _.get(values, 'dob.month'),
-      //   birth_year: _.get(values, 'dob.year'),
-
-      //   avatar: _.get(values, 'avatarPath'),
-      //   nominator: _.get(values, 'Referencer'),
-      //   note: _.get(values, 'note'),
-      // }
 
       const submitData = {
         ...JSON.parse(dataRegister),
@@ -195,34 +171,6 @@ const Register = (props) => {
           setLoading(false);
           alertService.error(message, option);
         });
-      // alertService.error(_.get(registerResponse, 'message'), option);
-      // return userService.register(submitData)
-      //   .then((rep) => {
-      //     if (rep.status === 'success') {
-      //       return userService.login(_.get(values, 'phoneNumber'), _.get(values, 'identityCard'))
-      //         .then((rep) => {
-      //           if (rep.status === 'success') {
-      //             toast({
-      //               title: 'Đăng ký thành công',
-      //               description: "Chúc mừng quý phật tử đã đăng ký quy y thành công!",
-      //               status: 'success',
-      //               duration: 7000,
-      //               isClosable: true,
-      //             });
-      //             setTimeout(() => {
-      //               setLoading(false);
-      //               const returnUrl = router.query.returnUrl || '/';
-      //               router.push(returnUrl);
-      //             }, 3000);
-      //           }
-      //         });
-      //     }
-      //     setLoading(false);
-      //   })
-      //   .catch((message, option) => {
-      //     alertService.error(message, option);
-      //     setLoading(false);
-      //   });
     },
   });
 
@@ -253,7 +201,7 @@ const Register = (props) => {
                       fontWeight={700}
                       color="yellow.500"
                     >
-                      {`Đăng ký Quy Y`}
+                      {`Đăng Ký Quy Y`}
                     </Heading>
                   </Stack>
                   <Divider mb={2} mt={2} />
@@ -299,7 +247,7 @@ const Register = (props) => {
                         </HStack>
                       </Box>
                       <Address
-                        style={{ marginTop: '20px' }}
+                        mt={2}
                         name="permanentAddress"
                         label="Địa chỉ theo CCCD"
                         mb={5}
@@ -345,7 +293,7 @@ const Register = (props) => {
                       </Stack>
                     </Box>
                   </SimpleGrid>
-                  <Accordion defaultIndex={[0]} allowMultiple mt={10}>
+                  <Accordion defaultIndex={[0]} allowMultiple mt={5}>
                     <AccordionItem>
                       <h2>
                         <AccordionButton
@@ -359,35 +307,32 @@ const Register = (props) => {
                         </AccordionButton>
                       </h2>
                       <AccordionPanel padding={0} borderBlockEnd={'none'}>
-                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
-                            <Box>
-                              <FormInput
-                                name="Referencer"
-                                label="Người giới thiệu"
-                              />
-                            </Box>
-                            <Box>
-                              <Form noValidate>
-                                <CultivationPlace
-                                  name="organizationStructureId"
-                                  className="organizationStructureId"
-                                  label="Địa điểm tu tập"
-                                />
-                              </Form>
-                            </Box>
-                          </SimpleGrid>
-                        </SimpleGrid>
+                        {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}> */}
+                        <Stack
+                          dir={{ base: 'column', lg: 'row' }}
+                          columns={{ base: 1, md: 2 }}
+                          spacing={2}
+                        >
+                          <FormInput
+                            name="Referencer"
+                            label="Người giới thiệu"
+                          />
+                          <CultivationPlace
+                            name="organizationStructureId"
+                            className="organizationStructureId"
+                            label="Địa điểm tu tập"
+                          />
+                          <FormInput
+                            name="note"
+                            label="Ghi chú"
+                            as={Textarea}
+                            placeholder="Huynh đệ có thắc mắc gì không ạ?"
+                          />
+                        </Stack>
+                        {/* </SimpleGrid> */}
                         <SimpleGrid columns={{ base: 1, md: 1 }}>
                           <Box>
-                            <Box>
-                              <FormInput
-                                name="note"
-                                label="Ghi chú"
-                                as={Textarea}
-                                placeholder="Huynh đệ có thắc mắc gì không ạ?"
-                              />
-                            </Box>
+                            <Box></Box>
                           </Box>
                         </SimpleGrid>
                       </AccordionPanel>
