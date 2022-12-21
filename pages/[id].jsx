@@ -17,6 +17,7 @@ import {
   FormControl,
   useToast,
   GridItem,
+  HStack,
 } from '@chakra-ui/react';
 import DateOfBirth from '@/components/Form/DateOfBirth';
 import _ from 'lodash';
@@ -41,7 +42,7 @@ import FloatingLabel from '@/components/Form/FloatingLabel/FloatingLabel';
 const Register = (props) => {
   const router = useRouter();
   const toast = useToast();
-  const { setLoading } = useLoadingContext();
+  const { setLoading, isLoading } = useLoadingContext();
   const [haveImage, setFlapImage] = useState(true);
   const [openQR, openQrCode] = useState(false);
   const { query } = useRouter();
@@ -110,7 +111,7 @@ const Register = (props) => {
       //   setFlapImage(false);
       //   return;
       // }
-      // setLoading(true);
+      setLoading(true);
       // const submitData = {
       //   full_name: _.get(values, 'fullName'),
       //   id_card: _.get(values, 'identityCard'),
@@ -155,9 +156,9 @@ const Register = (props) => {
         address: _.get(values, 'address'),
 
         ctnGroupId: _.get(values, 'organizationStructureId'),
-        birthDay: _.get(values, 'dobDate') || undefined,
-        birthMonth: _.get(values, 'dobMonth') || undefined,
-        birthYear: _.get(values, 'dobYear') || undefined,
+        // birthDay: _.get(values, 'dobDate') || undefined,
+        // birthMonth: _.get(values, 'dobMonth') || undefined,
+        birthYear: _.get(values, 'birthYear') || undefined,
         avatar: _.get(values, 'avatarPath'),
         nominator: _.get(values, 'Referencer'),
         note: _.get(values, 'note'),
@@ -192,8 +193,6 @@ const Register = (props) => {
         })
         .catch((message, option) => {
           setLoading(false);
-          debugger;
-
           alertService.error(message, option);
         });
       // alertService.error(_.get(registerResponse, 'message'), option);
@@ -232,33 +231,33 @@ const Register = (props) => {
       {/* <QrCode open={openQR} setCloseQrCode={(flap) => {
         openQrCode(flap);
       }} /> */}
-      <Box
-        w={'full'}
-        // bgGradient='linear(to-r,  blue.200, Blue.500)'
-        bgGradient="linear(to-r, yellow.300, blue.500)"
-        p={[2, 4, 6, 8, 10]}
-      >
-        <Container maxW={'4xl'} alignItems={'center'} rounded="md">
-          <GridItem colSpan={{ base: 3 }}>
-            <Box
-              p={{ base: 4, sm: 6, md: '10px 40px' }}
-              roundedTop={'5px'}
-              boxShadow="dark-lg"
-              bg="#FFFFFF"
-            >
-              <Stack spacing={1} textAlign={'center'}>
-                <Heading
-                  fontSize={{ base: '3xl', sm: '4xl', md: '5xl' }}
-                  fontWeight={700}
-                  color="yellow.500"
+      <FormikProvider value={formik}>
+        <Form>
+          <Box
+            w={'full'}
+            // bgGradient='linear(to-r,  blue.200, Blue.500)'
+            bgGradient="linear(to-r, yellow.300, blue.500)"
+            p={[2, 4, 6, 8, 10]}
+          >
+            <Container maxW={'4xl'} alignItems={'center'} rounded="md">
+              <GridItem colSpan={{ base: 3 }}>
+                <Box
+                  p={{ base: 4, sm: 6, md: '10px 40px' }}
+                  roundedTop={'5px'}
+                  boxShadow="dark-lg"
+                  bg="#FFFFFF"
                 >
-                  {`Đăng ký Quy Y`}
-                </Heading>
-              </Stack>
-              <Divider mb={2} mt={2} />
-              <Box mt={0}>
-                <FormikProvider value={formik}>
-                  <Form noValidate>
+                  <Stack spacing={1} textAlign={'center'}>
+                    <Heading
+                      fontSize={{ base: '3xl', sm: '4xl', md: '5xl' }}
+                      fontWeight={700}
+                      color="yellow.500"
+                    >
+                      {`Đăng ký Quy Y`}
+                    </Heading>
+                  </Stack>
+                  <Divider mb={2} mt={2} />
+                  <Box mt={0}>
                     <FormControl name="avatarPath" as="fieldset" border={1}>
                       <UploadFile
                         haveImage={haveImage}
@@ -270,40 +269,42 @@ const Register = (props) => {
                         }}
                       />
                     </FormControl>
-                  </Form>
-                </FormikProvider>
-              </Box>
-              <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-                <Box mb={5}>
-                  <SimpleGrid mb={5} columns={{ base: 1, md: 1 }} spacing={5}>
-                    <FormikProvider value={formik}>
-                      <Form noValidate>
-                        <Stack spacing={2}>
-                          <FormInput
-                            name="fullName"
-                            label="Họ và tên"
-                            isRequired
-                          />
-                        </Stack>
-                      </Form>
-                    </FormikProvider>
-                  </SimpleGrid>
-                  <SimpleGrid mb={5} columns={{ base: 1, md: 2 }} spacing={5}>
-                    <Box>
-                      <FormikProvider value={formik}>
+                  </Box>
+                  <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+                    <Box mb={5}>
+                      <SimpleGrid
+                        mb={5}
+                        columns={{ base: 1, md: 1 }}
+                        spacing={5}
+                      >
                         <Form noValidate>
                           <Stack spacing={2}>
                             <FormInput
-                              name="phoneNumber"
-                              label="Số điện thoại"
-                              pattern="[0-9]*"
-                              inputMode="numeric"
+                              name="fullName"
+                              label="Họ và tên"
+                              isRequired
                             />
                           </Stack>
                         </Form>
-                      </FormikProvider>
-                    </Box>
-                    <Box>
+                      </SimpleGrid>
+                      <Box>
+                        <HStack spacing={2}>
+                          <FormInput
+                            name="phoneNumber"
+                            label="Số điện thoại"
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                          />
+                          <FormInput name="email" label="Email" />
+                        </HStack>
+                      </Box>
+                      <Address
+                        style={{ marginTop: '20px' }}
+                        name="permanentAddress"
+                        label="Địa chỉ theo CCCD"
+                      />
+                      <FloatingLabel label="Số nhà" name="ttAddress" />
+                      {/* <Box>
                       <FormikProvider value={formik}>
                         <Form noValidate>
                           <Stack spacing={2}>
@@ -315,22 +316,10 @@ const Register = (props) => {
                           </Stack>
                         </Form>
                       </FormikProvider>
+                    </Box> */}
                     </Box>
-                  </SimpleGrid>
-                  <SimpleGrid columns={{ base: 1, md: 1 }} spacing={5}>
-                    <Box>
-                      <FormikProvider value={formik}>
-                        <Form noValidate>
-                          <FormInput name="email" label="Email" />
-                        </Form>
-                      </FormikProvider>
-                    </Box>
-                  </SimpleGrid>
-                </Box>
 
-                <Box>
-                  <FormikProvider value={formik}>
-                    <Form noValidate>
+                    <Box>
                       <Stack>
                         <Radios
                           mb={'6px'}
@@ -341,91 +330,69 @@ const Register = (props) => {
                           <Radio value={'1'}>Nam</Radio>
                           <Radio value={'2'}>Nữ</Radio>
                         </Radios>
-                        <DateOfBirth mb={'6px'} name="dob" label="Ngày sinh" />
-                        <Address
-                          style={{ marginTop: '20px' }}
-                          name="permanentAddress"
-                          label="Địa chỉ thường trú"
-                        />
-                        <FloatingLabel label="Số nhà" name="ttAddress" />
-                      </Stack>
-                    </Form>
-                  </FormikProvider>
-                </Box>
-              </SimpleGrid>
-              <Accordion defaultIndex={[0]} allowMultiple mt={10}>
-                <AccordionItem>
-                  <h2>
-                    <AccordionButton
-                      padding={'10px 5px'}
-                      backgroundColor={'grey.50'}
-                    >
-                      <Box as="span" flex="1" textAlign="left">
-                        Thông Tin Khác
-                      </Box>
-                      <AccordionIcon />
-                    </AccordionButton>
-                  </h2>
-                  <AccordionPanel padding={0} borderBlockEnd={'none'}>
-                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
-                      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+                        {/* <DateOfBirth mb={'6px'} name="dob" label="Ngày sinh" /> */}
+                        <FormInput name="birthYear" label="Năm sinh" />
+
                         <Box>
-                          <FormikProvider value={formik}>
-                            <Form noValidate>
+                          <Address
+                            name="temporaryAddress"
+                            label="Địa chỉ tạm trú"
+                            mb={5}
+                          />
+                          <FloatingLabel label="Số nhà" name="address" />
+                        </Box>
+                      </Stack>
+                    </Box>
+                  </SimpleGrid>
+                  <Accordion defaultIndex={[0]} allowMultiple mt={10}>
+                    <AccordionItem>
+                      <h2>
+                        <AccordionButton
+                          padding={'10px 5px'}
+                          backgroundColor={'grey.50'}
+                        >
+                          <Box as="span" flex="1" textAlign="left">
+                            Thông Tin Khác
+                          </Box>
+                          <AccordionIcon />
+                        </AccordionButton>
+                      </h2>
+                      <AccordionPanel padding={0} borderBlockEnd={'none'}>
+                        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}>
+                          <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2}>
+                            <Box>
                               <FormInput
                                 name="Referencer"
                                 label="Người giới thiệu"
                               />
-                            </Form>
-                          </FormikProvider>
-                        </Box>
-                        <Box>
-                          <FormikProvider value={formik}>
-                            <Form noValidate>
-                              <CultivationPlace
-                                name="organizationStructureId"
-                                className="organizationStructureId"
-                                label="Địa điểm tu tập"
-                              />
-                            </Form>
-                          </FormikProvider>
-                        </Box>
-                      </SimpleGrid>
-                      <Box>
-                        <FormikProvider value={formik}>
-                          <Form noValidate>
-                            <Address
-                              name="temporaryAddress"
-                              label="Địa chỉ tạm trú"
-                              mb={5}
-                            />
-                            <FloatingLabel label="Số nhà" name="address" />
-                          </Form>
-                        </FormikProvider>
-                      </Box>
-                    </SimpleGrid>
-                    <SimpleGrid columns={{ base: 1, md: 1 }}>
-                      <Box>
-                        <Box>
-                          <FormikProvider value={formik}>
-                            <Form noValidate>
+                            </Box>
+                            <Box>
+                              <Form noValidate>
+                                <CultivationPlace
+                                  name="organizationStructureId"
+                                  className="organizationStructureId"
+                                  label="Địa điểm tu tập"
+                                />
+                              </Form>
+                            </Box>
+                          </SimpleGrid>
+                        </SimpleGrid>
+                        <SimpleGrid columns={{ base: 1, md: 1 }}>
+                          <Box>
+                            <Box>
                               <FormInput
                                 name="note"
                                 label="Ghi chú"
                                 as={Textarea}
                                 placeholder="Huynh đệ có thắc mắc gì không ạ?"
                               />
-                            </Form>
-                          </FormikProvider>
-                        </Box>
-                      </Box>
-                    </SimpleGrid>
-                  </AccordionPanel>
-                </AccordionItem>
-              </Accordion>
-              <Box width="100%" textAlign={'center'}>
-                <FormikProvider value={formik}>
-                  <Form noValidate>
+                            </Box>
+                          </Box>
+                        </SimpleGrid>
+                      </AccordionPanel>
+                    </AccordionItem>
+                  </Accordion>
+                  <Box width="100%" textAlign={'center'}>
                     <Button
                       type="submit"
                       fontFamily={'heading'}
@@ -434,6 +401,9 @@ const Register = (props) => {
                       w={'full'}
                       width="200px"
                       colorScheme="blue"
+                      isLoading={isLoading}
+                      loadingText="Loading..."
+                      spinnerPlacement="start"
                     >
                       Đăng ký
                     </Button>
@@ -442,13 +412,22 @@ const Register = (props) => {
                     }} fontFamily={'heading'} mt={8} mb={2} w={'full'} ml={5} width='100px'>
                       Mã QrCode
                     </Button> */}
-                  </Form>
-                </FormikProvider>
-              </Box>
-            </Box>
-          </GridItem>
-        </Container>
-      </Box>
+                    {/* <Button
+                      isLoading
+                      loadingText="Loading"
+                      colorScheme="teal"
+                      variant="outline"
+                      spinnerPlacement="start"
+                    >
+                      Submit
+                    </Button> */}
+                  </Box>
+                </Box>
+              </GridItem>
+            </Container>
+          </Box>
+        </Form>
+      </FormikProvider>
     </Layout>
   );
 };
