@@ -67,7 +67,7 @@ export default function UploadFile(props: UploadFileProps) {
 
   useEffect(() => {
     if (uploadResponse?.data) {
-      const src = uploadResponse.data[0]?.storedFileName;
+      const src = encodeURIComponent(uploadResponse.data[0]?.storedFileName);
 
       if (isUploaded) {
         const directSrc = URL.createObjectURL(file as Blob);
@@ -120,10 +120,7 @@ export default function UploadFile(props: UploadFileProps) {
                   </Box>
                 ) : (
                   <Stack p="8" textAlign="center" spacing="1">
-                    <Heading
-                      fontSize="lg"
-                      fontWeight="bold"
-                    >
+                    <Heading fontSize="lg" fontWeight="bold">
                       {label}
                     </Heading>
                     <Text fontWeight="light">hoặc bấm để chọn ảnh</Text>
