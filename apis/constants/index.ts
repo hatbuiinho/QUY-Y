@@ -6,7 +6,9 @@ const LOGIN = api('/Auth/login');
 
 const GET_STRONG_POINT = api('/SkillForRegisters/GetAll');
 const GET_DEPARTMENT_BY_EVENT = api('/Department/get-all');
-const GET_RECEIVE_CARD_ADDRESSES_BY_EVENT = api('/ReceiveCardAddresses/Event/:id');
+const GET_RECEIVE_CARD_ADDRESSES_BY_EVENT = api(
+  '/ReceiveCardAddresses/Event/:id'
+);
 const SEARCH_LEADER = api('/EventRegistry/search-leader');
 const GET_REGISTER_PAGE = api('/EventRegistryPages/GetById/:shortUri');
 const GET_START_ADDRESS_BY_EVENT = api('/StartAddresses/event/:id');

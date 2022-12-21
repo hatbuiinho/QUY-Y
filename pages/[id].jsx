@@ -308,11 +308,7 @@ const Register = (props) => {
                       </h2>
                       <AccordionPanel padding={0} borderBlockEnd={'none'}>
                         {/* <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5}> */}
-                        <Stack
-                          dir={{ base: 'column', lg: 'row' }}
-                          columns={{ base: 1, md: 2 }}
-                          spacing={2}
-                        >
+                        <HStack dir={{ base: 'column', sm: 'row' }} spacing={2}>
                           <FormInput
                             name="Referencer"
                             label="Người giới thiệu"
@@ -322,13 +318,13 @@ const Register = (props) => {
                             className="organizationStructureId"
                             label="Địa điểm tu tập"
                           />
-                          <FormInput
-                            name="note"
-                            label="Ghi chú"
-                            as={Textarea}
-                            placeholder="Huynh đệ có thắc mắc gì không ạ?"
-                          />
-                        </Stack>
+                        </HStack>
+                        <FormInput
+                          name="note"
+                          label="Ghi chú"
+                          as={Textarea}
+                          placeholder="Huynh đệ có thắc mắc gì không ạ?"
+                        />
                         {/* </SimpleGrid> */}
                         <SimpleGrid columns={{ base: 1, md: 1 }}>
                           <Box>

@@ -7,8 +7,6 @@ import {
   StackProps,
 } from '@chakra-ui/react';
 import CustomSelect from '@/components/Form/CustomSelect';
-import _ from 'lodash';
-import { useEffect } from 'react';
 import { useField } from 'formik';
 import API from '../../../apis/constants';
 import useAxios from '../../../hooks/useAxios';
