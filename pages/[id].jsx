@@ -46,6 +46,7 @@ const Register = (props) => {
   const [haveImage, setFlapImage] = useState(true);
   const [openQR, openQrCode] = useState(false);
   const { query } = useRouter();
+  const [success, setSuccess] = useState();
 
   const { data: dataRegister } = useAxios(
     {
@@ -147,12 +148,15 @@ const Register = (props) => {
             setLoading(false);
             toast({
               title: 'Đăng ký thành công',
-              description: 'Chúc mừng quý phật tử đã đăng ký quy y thành công!',
+              description:
+                'Chúc mừng quý phật tử đã đăng ký Quy Y Tam Bảo thành công!',
               status: 'success',
               duration: 7000,
               isClosable: true,
               position: 'top',
+              variant: 'left-accent',
             });
+            setSuccess(true);
             setTimeout(() => {
               window.location.href = 'http://thongtin.thientonphatquang.com/';
             }, 6000);
@@ -346,8 +350,9 @@ const Register = (props) => {
                       isLoading={isLoading}
                       loadingText="Loading..."
                       spinnerPlacement="start"
+                      disabled={success}
                     >
-                      Đăng ký
+                      {success ? 'Đã đăng ký' : 'Đăng ký'}
                     </Button>
                     {/* <Button onClick={() => {
                       openQrCode(true);
