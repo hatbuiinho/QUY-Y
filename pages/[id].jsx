@@ -302,6 +302,7 @@ const Register = (props) => {
                         style={{ marginTop: '20px' }}
                         name="permanentAddress"
                         label="Địa chỉ theo CCCD"
+                        mb={5}
                       />
                       <FloatingLabel label="Số nhà" name="ttAddress" />
                       {/* <Box>
