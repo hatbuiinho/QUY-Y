@@ -27,9 +27,12 @@ function CultivationPlace(props: CultivationPlaceProps) {
     {
       method: 'get',
       url: API.GET_CTN,
+      params: {
+        CTNGroupId: 0,
+      },
       transformResponse: ({ data }) => data,
     },
-    [],
+    []
   );
 
   return (
@@ -37,10 +40,10 @@ function CultivationPlace(props: CultivationPlaceProps) {
       <FormLabel mb={0}>{label}</FormLabel>
       <CustomSelect
         {...field}
-        valueField='id'
-        labelField='name'
+        valueField="id"
+        labelField="name"
         data={groups}
-        placeholder='Nơi sinh hoạt'
+        placeholder="Nơi sinh hoạt"
         hiddenErrorMessage
       />
       <FormErrorMessage>{error}</FormErrorMessage>
